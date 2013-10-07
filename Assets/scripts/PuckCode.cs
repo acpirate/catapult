@@ -126,7 +126,11 @@ public class PuckCode : MonoBehaviour {
 	}
 	
 	void PriestExplosion() {
-		Instantiate(PrefabManager.holyExplosionPrefab,transform.position,Quaternion.identity);	
+		if (MainGameCode.gamestate!=GAMESTATE.TITLE)		
+		{
+			Instantiate(PrefabManager.holyExplosionPrefab,transform.position,Quaternion.identity);	
+			AudioSource.PlayClipAtPoint(PrefabManager.priestExplosionSound,PrefabManager.soundController.transform.position);			
+		}	
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, priestExplosionRadius);
 		foreach (Collider hit in hitColliders) {
 			if (hit.gameObject.name=="Puck(Clone)") hit.gameObject.GetComponent<PuckCode>().currentCooldown*=.5f; 	
@@ -162,7 +166,7 @@ public class PuckCode : MonoBehaviour {
 		break;
 		case PUCKCLASS.WIZARD:
 			transform.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex",PrefabManager.wizardTexture);
-			strength=0;
+			strength=1;
 			//rigidbody.mass=.1f;
 		break;
 		case PUCKCLASS.WARRIOR:

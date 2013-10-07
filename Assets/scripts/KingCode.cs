@@ -24,9 +24,18 @@ public class KingCode : MonoBehaviour {
 		
 	}
 	
+	void OnCollisionEnter(Collision col) {
+		MakeGrunt();
+	}	
+	
 	public void Stabilize() {
 		rigidbody.Sleep();
 		stabilizeTimer=2;
 		
+	}	
+	
+	void MakeGrunt() {
+		if (MainGameCode.gamestate!=GAMESTATE.TITLE)
+		AudioSource.PlayClipAtPoint(PrefabManager.kingHitSound,PrefabManager.soundController.transform.position);	
 	}	
 }

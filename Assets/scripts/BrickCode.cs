@@ -24,11 +24,17 @@ public class BrickCode : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (transform.position.y<-300) Destroy(gameObject);
-		if (damage>4) Destroy(gameObject);
+		if (damage>4) BrickBreak();
 		
 		if (invulnerabilityCounter>0) invulnerabilityCounter-=Time.deltaTime;
 		if (invulnerabilityCounter<0) invulnerabilityCounter=0;
 	}
+	
+	void BrickBreak() {
+		if (MainGameCode.gamestate!=GAMESTATE.TITLE)
+		AudioSource.PlayClipAtPoint(PrefabManager.brickBreakSound,PrefabManager.soundController.transform.position);			
+		Destroy(gameObject);
+	}	
 	
 	void OnCollisionEnter(Collision col) {
 		string hitName=col.gameObject.name;
@@ -41,10 +47,16 @@ public class BrickCode : MonoBehaviour {
 				
 				int tempDamage=1;
 				//pucks damage bricks based on their strength
-				if (hitName=="Puck(Clone)") 
-				tempDamage=col.gameObject.GetComponent<PuckCode>().getStrength();
+				if (hitName=="Puck(Clone)") {
+					tempDamage=col.gameObject.GetComponent<PuckCode>().getStrength();
+					if (col.gameObject.GetComponent<PuckCode>().getClass()!=PUCKCLASS.WIZARD)
+					AudioSource.PlayClipAtPoint(PrefabManager.puckHitBrickSound,PrefabManager.soundController.transform.position);						
+				}	
 				//bricks dont damage each other unless they hit really hard
-				if ((col.gameObject.name=="Brick(Clone)" || col.gameObject.name=="Brick" || col.gameObject.name=="HalfBrick(Clone)") && col.relativeVelocity.magnitude<40)
+				if ((col.gameObject.name=="Brick(Clone)" || 
+					 col.gameObject.name=="Brick" || 
+					 col.gameObject.name=="HalfBrick(Clone)") && 
+					 col.relativeVelocity.magnitude<40)
 				tempDamage=0;	
 					
 				
@@ -70,10 +82,12 @@ public class BrickCode : MonoBehaviour {
 	
 	void WizardExplosion(PuckCode inPuckCode) {
 		Instantiate(PrefabManager.shockFlashPrefab,inPuckCode.gameObject.transform.position,Quaternion.Euler(new Vector3(-90,0,0)));
+		if (MainGameCode.gamestate!=GAMESTATE.TITLE)
+		AudioSource.PlayClipAtPoint(PrefabManager.wizardExplosionSound,PrefabManager.soundController.transform.position);			
 		Collider[] hitColliders = Physics.OverlapSphere(inPuckCode.gameObject.transform.position, inPuckCode.wizardExplosionRadius);
 		foreach (Collider col in hitColliders) {
 			if (col.gameObject.name=="Brick(Clone)" || col.gameObject.name=="Brick" || col.gameObject.name=="HalfBrick(Clone)") {
-				col.gameObject.GetComponent<BrickCode>().BrickDamage(2);	
+				col.gameObject.GetComponent<BrickCode>().BrickDamage(1);	
 			}	
 		}	
 		

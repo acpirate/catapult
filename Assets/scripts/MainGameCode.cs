@@ -31,6 +31,8 @@ public class MainGameCode : MonoBehaviour {
 	static float throneXStart=-215;
 	static float throneZStart=1020;
 	
+	static AudioSource mainSoundPlayer=null;
+	
 	public static ENGINE selectedEngine = ENGINE.BALLISTA;
 	public static int angleSelectNumber=0;
 	
@@ -65,6 +67,7 @@ public class MainGameCode : MonoBehaviour {
 		if (king==null) king=GameObject.Find("King");
 		//if (puck==null) puck=GameObject.Find("Puck");
 		if (mainCamera==null) mainCamera=GameObject.Find("Main Camera").GetComponent<Camera>();	
+		if (mainSoundPlayer==null) mainSoundPlayer=GetComponent<AudioSource>();
 	}	
 	
 	void Start () {
@@ -173,7 +176,7 @@ public class MainGameCode : MonoBehaviour {
 	
 	public static Vector3 getPuckStartLocation(int puckIndexNumber) {
 		float yPosition=PrefabManager.startZone.transform.position.y;
-		float zPosition=PrefabManager.startZone.transform.position.z;
+		float zPosition=PrefabManager.startZone.transform.position.z-.19f;
 		float tempX=PrefabManager.startZone.transform.position.x - PrefabManager.startZone.transform.localScale.x/2;
 		
 		float xPosition=tempX+PrefabManager.startZone.transform.localScale.x/(partySize+1)*(puckIndexNumber+1);
@@ -364,6 +367,8 @@ public class MainGameCode : MonoBehaviour {
 			
 			
 			selectedPuck.GetComponent<PuckCode>().DoCooldown();
+			//play fire sound
+			AudioSource.PlayClipAtPoint(PrefabManager.puckFireSound,PrefabManager.soundController.transform.position);
 		} else selectedPuck.GetComponent<PuckCode>().currentCooldownWarningTime=selectedPuck.GetComponent<PuckCode>().maxCooldownWarningTime;	
 		currentPower=0;
 	}	
@@ -394,7 +399,8 @@ public class MainGameCode : MonoBehaviour {
 	
 	
 	public static void PlayGame() {
-		gamestate=GAMESTATE.PLAY;	
+		gamestate=GAMESTATE.PLAY;
+		AudioSource.PlayClipAtPoint(PrefabManager.gameStartSound,PrefabManager.soundController.transform.position);
 	}
 	
 	public static void GameOver() {

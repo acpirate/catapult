@@ -20,6 +20,17 @@ public class PrefabManager : MonoBehaviour {
 	public Material brickMaterialLoader;
 	public GameObject halfBrickPrefabLoader;
 	public GameObject brickPrefabLoader;
+	public GameObject soundControllerLoader;
+	public AudioClip gameStartSoundLoader;
+	public AudioClip puckFireSoundLoader;
+	public AudioClip puckHitGroundSoundLoader;
+	public AudioClip kingHitSoundLoader;
+	public AudioClip brickBreakSoundLoader;
+	public AudioClip splashSoundLoader;
+	public AudioClip wizardExplosionSoundLoader;
+	public AudioClip priestExplosionSoundLoader;
+	public AudioClip puckHitBrickSoundLoader;
+
 	
 	public static GameObject puckDustPrefab=null;
 	public static Texture brickCracked=null;
@@ -38,6 +49,16 @@ public class PrefabManager : MonoBehaviour {
 	public static Material brickMaterial;
 	public static GameObject halfBrickPrefab=null;
 	public static GameObject brickPrefab=null;
+	public static GameObject soundController=null;
+	public static AudioClip gameStartSound;
+	public static AudioClip puckFireSound;
+	public static AudioClip puckHitGroundSound;
+	public static AudioClip kingHitSound;
+	public static AudioClip brickBreakSound;
+	public static AudioClip splashSound;
+	public static AudioClip wizardExplosionSound;
+	public static AudioClip priestExplosionSound;
+	public static AudioClip puckHitBrickSound;
 	
 	
 	
@@ -60,6 +81,16 @@ public class PrefabManager : MonoBehaviour {
 		brickMaterial=brickMaterialLoader;
 		halfBrickPrefab=halfBrickPrefabLoader;
 		brickPrefab=brickPrefabLoader;
+		soundController=soundControllerLoader;
+		gameStartSound=gameStartSoundLoader;
+		puckFireSound=puckFireSoundLoader;
+		puckHitGroundSound=puckHitGroundSoundLoader;
+		kingHitSound=kingHitSoundLoader;
+		brickBreakSound=brickBreakSoundLoader;
+		splashSound=splashSoundLoader;
+		wizardExplosionSound=wizardExplosionSoundLoader;
+		priestExplosionSound=priestExplosionSoundLoader;
+		puckHitBrickSound=puckHitBrickSoundLoader;
 	}		
 	
 	void Start () {
