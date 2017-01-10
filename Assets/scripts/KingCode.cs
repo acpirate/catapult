@@ -20,7 +20,7 @@ public class KingCode : MonoBehaviour {
 		if (stabilizeTimer>0) stabilizeTimer-=Time.deltaTime;
 		if (stabilizeTimer<0)  {
 			stabilizeTimer=0;
-			rigidbody.WakeUp(); }
+			GetComponent<Rigidbody>().WakeUp(); }
 		
 	}
 	
@@ -29,7 +29,7 @@ public class KingCode : MonoBehaviour {
 	}	
 	
 	public void Stabilize() {
-		rigidbody.Sleep();
+		GetComponent<Rigidbody>().Sleep();
 		stabilizeTimer=2;
 		
 	}	

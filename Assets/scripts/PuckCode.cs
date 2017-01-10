@@ -71,11 +71,11 @@ public class PuckCode : MonoBehaviour {
 		//Debug.Log(rigidbody.velocity.magnitude);
 		
 		
-		if (rigidbody.velocity.magnitude>3) puckMoving=true;
+		if (GetComponent<Rigidbody>().velocity.magnitude>3) puckMoving=true;
 		if (puckMoving) {
 			cameraResetFlag=true;
 			moveCamera.GetComponent<Camera>().enabled=true;
-			moveCamera.transform.position=transform.position + rigidbody.velocity.normalized*-100;
+			moveCamera.transform.position=transform.position + GetComponent<Rigidbody>().velocity.normalized*-100;
 			if (moveCamera.transform.position.y<20) moveCamera.transform.position=new Vector3(moveCamera.transform.position.x, 20, moveCamera.transform.position.z);
 			moveCamera.transform.LookAt(transform.position);
 		}	
@@ -86,7 +86,7 @@ public class PuckCode : MonoBehaviour {
 			if (MainGameCode.selectedPuck==gameObject) MainCameraSetBehindPuck();
 		}	
 		
-		if (puckMoving && rigidbody.velocity.magnitude<1) {
+		if (puckMoving && GetComponent<Rigidbody>().velocity.magnitude<1) {
 			puckMoving=false;
 			transform.rotation=Quaternion.Euler(0,0,0);
 			moveCamera.GetComponent<Camera>().enabled=false;
@@ -121,7 +121,7 @@ public class PuckCode : MonoBehaviour {
 		}
 		if (MainGameCode.selectedPuck!=gameObject) moveCamera.GetComponent<Camera>().enabled=false;
 		
-		if (currentCooldown<=0 && rigidbody.velocity.magnitude<3) effectFired=false;
+		if (currentCooldown<=0 && GetComponent<Rigidbody>().velocity.magnitude<3) effectFired=false;
 		
 	}
 	
@@ -189,14 +189,14 @@ public class PuckCode : MonoBehaviour {
 		currentCooldown=maxCooldown;
 		transform.position=MainGameCode.getPuckStartLocation(MainGameCode.party.IndexOf(gameObject));
 		transform.rotation=Quaternion.Euler(0,0,0);
-		rigidbody.velocity=new Vector3(0,0,0);	
+		GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);	
 	}	
 	
 	public void ResetPuckMid() {
 		currentCooldown=maxCooldown;
 		transform.position=MainGameCode.getPuckMidfieldLocation(MainGameCode.party.IndexOf(gameObject));
 		transform.rotation=Quaternion.Euler(0,0,0);
-		rigidbody.velocity=new Vector3(0,0,0);	
+		GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);	
 	}
 	
 	

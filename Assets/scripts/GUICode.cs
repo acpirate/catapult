@@ -63,7 +63,7 @@ public class GUICode : MonoBehaviour {
 			case GAMESTATE.PLAY:
 				if (Input.GetKey(KeyCode.Return)) {
 					if (MainGameCode.selectedPuck!=null && 
-						MainGameCode.selectedPuck.rigidbody.velocity.magnitude<1 && 
+						MainGameCode.selectedPuck.GetComponent<Rigidbody>().velocity.magnitude<1 && 
 						!MainGameCode.selectedPuck.GetComponent<PuckCode>().castleResetFlag)
 					MainGameCode.AimMode(); 
 				}

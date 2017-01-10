@@ -108,9 +108,9 @@ public class MainGameCode : MonoBehaviour {
 	
 	public static void TurnPhysicsOffAimingPuck() {
 		foreach (GameObject puck in party) {
-			puck.rigidbody.isKinematic=false;
+			puck.GetComponent<Rigidbody>().isKinematic=false;
 		}	
-		if (gamestate==GAMESTATE.AIM) selectedPuck.rigidbody.isKinematic=true;
+		if (gamestate==GAMESTATE.AIM) selectedPuck.GetComponent<Rigidbody>().isKinematic=true;
 	}	
 	
 	public static void BrickTransparency() {
@@ -324,7 +324,7 @@ public class MainGameCode : MonoBehaviour {
 		//Debug.Log("maingamecode: shoot code selectedpuck cooldown" + selectedPuck.GetComponent<PuckCode>().currentCooldown);
 		if (selectedPuck.GetComponent<PuckCode>().currentCooldown<=0) {
 			//turn on puck physics after aiming
-			selectedPuck.rigidbody.isKinematic=false;
+			selectedPuck.GetComponent<Rigidbody>().isKinematic=false;
 			Engine tempEngine=engines[selectedEngine];
 			
 			int tempMaxPower=tempEngine.getMaxPower();
@@ -361,9 +361,9 @@ public class MainGameCode : MonoBehaviour {
 			shootVector*=currentPower/100*tempMaxPower*powerMultiplier;
 			//puck.transform.eulerAngles+=new Vector3(0,tempAngle*-1,0);
 			
-			selectedPuck.rigidbody.AddForce(shootVector);
+			selectedPuck.GetComponent<Rigidbody>().AddForce(shootVector);
 			if (tempEngine.getType()!=ENGINE.BALLISTA)
-				selectedPuck.rigidbody.AddRelativeTorque(new Vector3(currentPower/100*maxPower*powerMultiplier*10,0,0));
+				selectedPuck.GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(currentPower/100*maxPower*powerMultiplier*10,0,0));
 			
 			
 			selectedPuck.GetComponent<PuckCode>().DoCooldown();
@@ -423,10 +423,10 @@ public class MainGameCode : MonoBehaviour {
 	}		
 	
 	public static void ResetKing() {
-		king.rigidbody.velocity=new Vector3(0,0,0);
+		king.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
 		king.transform.position=new Vector3(-200,11.2f,1015);
 		king.transform.eulerAngles=new Vector3(0,0,0);
-		king.rigidbody.velocity=new Vector3(0,0,0);
+		king.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);
 		king.GetComponent<KingCode>().Stabilize();
 	}		
 	
